@@ -52,6 +52,4 @@ exports.update = async (id, userParam) => {
 	await user.save();
 }
 
-exports._delete = async (id) => {
-	await User.findByIdAndRemove(id);
-}
+exports._delete = async (id) => { await User.findOneAndDelete({ _id: id }).setOptions({ useFindAndModify: false }); }

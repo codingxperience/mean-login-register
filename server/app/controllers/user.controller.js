@@ -17,7 +17,7 @@ exports.loginMe = async (req, res, next) => {
 			res.status(400).json({ message: 'Username or password is incorrect' })
 		}
 	} catch (error) {
-		next(err);
+		next(error);
 	}
 }
 
@@ -49,7 +49,7 @@ exports.update = async (req, res, next) => {
 }
 
 exports._delete = async (req, res, next) => {
-	userService.delete(req.params.id)
+	userService._delete(req.params.id)
 		.then(() => res.json({}))
 		.catch(err => next(err));
 }

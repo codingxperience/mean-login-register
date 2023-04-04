@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import confetti from 'canvas-confetti';
+
 
 import { User } from '../_models';
 
@@ -9,6 +11,7 @@ import { User } from '../_models';
 export class AuthenticationService {
 	private currentUserSubject: BehaviorSubject<any>;
 	public currentUser: Observable<any>;
+	private intervalId: any = null;
 
 	constructor(private http: HttpClient) {
 		this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
@@ -29,6 +32,12 @@ export class AuthenticationService {
 					// store user details and jwt token in local storage to keep user logged in between page refreshes
 					localStorage.setItem('currentUser', JSON.stringify(user));
 					this.currentUserSubject.next(user);
+					// Trigger the confetti effect every 500ms
+					this.intervalId = setInterval(() => {
+						confetti({
+							spread: 360,
+						});
+					}, 500);
 				}
 
 				return user;
@@ -39,5 +48,10 @@ export class AuthenticationService {
 		// remove user from local storage to log user out
 		localStorage.removeItem('currentUser');
 		this.currentUserSubject.next(null);
+
+		// Clear the interval that triggers the confetti effect
+		clearInterval(this.intervalId);
+		this.intervalId = null;
+
 	}
 }

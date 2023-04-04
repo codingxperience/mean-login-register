@@ -1,15 +1,20 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+
 
 import { User } from '../_models';
 import { UserService, AuthenticationService } from '../_services';
 
-@Component({ templateUrl: 'home.component.html' })
+@Component({ 
+	templateUrl: 'home.component.html',
+	styleUrls: ['home.component.css']
+})
 export class HomeComponent implements OnInit, OnDestroy {
 	currentUser: any;
 	currentUserSubscription: Subscription;
 	users: any;
+	// showConfetti = false;
 
 	constructor(
 		private authenticationService: AuthenticationService,
@@ -30,10 +35,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 	}
 
 	deleteUser(id: number) {
-		this.userService.delete(id).pipe(first()).subscribe(() => {
-			this.loadAllUsers()
-		});
-	}
+    this.userService.delete(id).pipe(first()).subscribe(() => {
+        this.users = this.users.filter(user => user._id !== id);
+    });
+}
 
 	private loadAllUsers() {
 		this.userService.getAll().pipe(first()).subscribe(users => {

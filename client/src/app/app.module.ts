@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers';
@@ -19,7 +20,8 @@ import { AlertComponent } from './_components';
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
-        appRoutingModule
+        appRoutingModule,
+        BrowserAnimationsModule
     ],
     declarations: [
         AppComponent,
