@@ -14,7 +14,7 @@ If you think this source code is useful, it will be great if you just give it st
 `npm install`
 
 **Start development server**<br/>
-`node server.js`
+`nodemon server.js`
 
 # Quick Start for Client
 
